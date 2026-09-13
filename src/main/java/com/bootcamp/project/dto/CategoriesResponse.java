@@ -2,6 +2,8 @@ package com.bootcamp.project.dto;
 
 import java.time.LocalDateTime;
 
+import java.io.Serializable;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,7 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CategoriesResponse {
+public class CategoriesResponse implements Serializable {
 
     private Long id;
 

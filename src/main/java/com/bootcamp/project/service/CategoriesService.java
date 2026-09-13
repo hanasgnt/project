@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -45,6 +46,7 @@ public class CategoriesService {
     // =========================
     // CREATE
     // =========================
+    @CacheEvict(value = "categories", key = "'all'")
     @Transactional
     public CategoriesResponse createCategory(CategoriesRequest request) {
 
@@ -118,6 +120,7 @@ public class CategoriesService {
     // =========================
     // UPDATE
     // =========================
+    @CacheEvict(value = "categories", key = "'all'")
     @Transactional
     public CategoriesResponse updateCategory(
             Long id,
