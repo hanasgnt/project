@@ -159,7 +159,7 @@ public class ProductsService {
 
                 logger.info("Fetching all products");
 
-                List<ProductsResponse> products = productRepository.findAll()
+                List<ProductsResponse> products = productRepository.findByDiscontinuedFalse()
                                 .stream()
                                 .map(this::mapToResponse)
                                 .toList();

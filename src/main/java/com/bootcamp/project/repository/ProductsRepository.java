@@ -1,5 +1,7 @@
 package com.bootcamp.project.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -10,4 +12,6 @@ public interface ProductsRepository extends JpaRepository<Products, Long> {
     boolean existsByCategoryId(Long categoryId);
 
     boolean existsBySupplierId(Long supplierId);
+
+    List<Products> findByDiscontinuedFalse();
 }

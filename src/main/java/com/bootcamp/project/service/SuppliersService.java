@@ -50,6 +50,7 @@ public class SuppliersService {
                                 .phone(supplier.getPhone())
                                 .fax(supplier.getFax())
                                 .homePage(supplier.getHomePage())
+                                .discontinued(supplier.getDiscontinued())
                                 .createdAt(supplier.getCreatedAt())
                                 .updatedAt(supplier.getUpdatedAt())
                                 .build();
@@ -102,15 +103,15 @@ public class SuppliersService {
         // =========================
         public List<SuppliersResponse> getAllSuppliers() {
 
-                logger.info("Fetching all suppliers");
+                logger.info("Fetching all active suppliers");
 
-                List<SuppliersResponse> suppliers = suppliersRepository.findAll()
+                List<SuppliersResponse> suppliers = suppliersRepository.findByDiscontinuedFalse()
                                 .stream()
                                 .map(this::mapToResponse)
                                 .toList();
 
                 logger.info(
-                                "Successfully fetched {} suppliers",
+                                "Successfully fetched {} active suppliers",
                                 suppliers.size());
 
                 return suppliers;
