@@ -18,6 +18,7 @@ import com.bootcamp.project.entity.Products;
 import com.bootcamp.project.entity.Suppliers;
 import com.bootcamp.project.repository.CategoriesRepository;
 import com.bootcamp.project.repository.ProductsRepository;
+import com.bootcamp.project.repository.StockLogsRepository;
 import com.bootcamp.project.repository.SuppliersRepository;
 
 import jakarta.transaction.Transactional;
@@ -35,6 +36,9 @@ public class ProductsService {
 
         @Autowired
         private SuppliersRepository suppliersRepository;
+
+        @Autowired
+        private StockLogsRepository stockLogsRepository;
 
         // =========================
         // Mapper
@@ -271,11 +275,9 @@ public class ProductsService {
         // =========================
         @CacheEvict(value = "products", key = "'all'")
         @Transactional
-        public void deleteProduct(Long id) {
+        public String deleteProduct(Long id) {
 
-                logger.info(
-                                "Attempting to delete product with ID: {}",
-                                id);
+                logger.info("Attempting to delete product with ID: {}", id);
 
                 if (!productRepository.existsById(id)) {
 
@@ -288,10 +290,29 @@ public class ProductsService {
                                         "Product not found");
                 }
 
+                boolean isUsedInStockLog = stockLogsRepository.existsByProductId(id);
+
+                if (isUsedInStockLog) {
+
+                        Products product = productRepository.findById(id)
+                                        .orElseThrow();
+
+                        product.setDiscontinued(true);
+                        productRepository.save(product);
+
+                        logger.info(
+                                        "Product with ID {} marked as discontinued",
+                                        id);
+
+                        return "Product discontinued because it is referenced by stock logs.";
+                }
+
                 productRepository.deleteById(id);
 
                 logger.info(
                                 "Product with ID {} deleted successfully",
                                 id);
+
+                return "Product successfully deleted.";
         }
 }

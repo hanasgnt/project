@@ -62,6 +62,9 @@ public class Suppliers {
     @Column(columnDefinition = "TEXT")
     private String homePage;
 
+    @Column(nullable = false)
+    private Boolean discontinued = false;
+
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 

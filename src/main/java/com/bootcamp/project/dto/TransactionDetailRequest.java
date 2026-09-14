@@ -1,7 +1,5 @@
 package com.bootcamp.project.dto;
 
-import java.math.BigDecimal;
-
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
@@ -22,5 +20,5 @@ public class TransactionDetailRequest {
     @Positive
     private Integer quantity;
 
-    private BigDecimal unitPrice;
+    // private BigDecimal unitPrice;
 }

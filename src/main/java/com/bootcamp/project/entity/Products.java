@@ -53,6 +53,7 @@ public class Products {
 
     private Short reorderLevel;
 
+    @Column(name = "discontinued")
     private Boolean discontinued;
 
     @Column(name = "created_at", updatable = false)

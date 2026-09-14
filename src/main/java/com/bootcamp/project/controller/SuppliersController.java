@@ -26,89 +26,89 @@ import jakarta.validation.Valid;
 @RequestMapping("/suppliers")
 public class SuppliersController {
 
-    @Autowired
-    private SuppliersService suppliersService;
+        @Autowired
+        private SuppliersService suppliersService;
 
-    // =========================
-    // CREATE
-    // =========================
-    @Operation(summary = "Create a new supplier")
-    @PostMapping("/create")
-    public ApiResponse<SuppliersResponse> createSupplier(
-            @Valid @RequestBody SuppliersRequest suppliersRequest) {
+        // =========================
+        // CREATE
+        // =========================
+        @Operation(summary = "Create a new supplier")
+        @PostMapping("/create")
+        public ApiResponse<SuppliersResponse> createSupplier(
+                        @Valid @RequestBody SuppliersRequest suppliersRequest) {
 
-        SuppliersResponse createdSupplier = suppliersService.createSupplier(suppliersRequest);
+                SuppliersResponse createdSupplier = suppliersService.createSupplier(suppliersRequest);
 
-        return ApiResponse.<SuppliersResponse>builder()
-                .message("Supplier successfully created")
-                .data(createdSupplier)
-                .build();
-    }
+                return ApiResponse.<SuppliersResponse>builder()
+                                .message("Supplier successfully created")
+                                .data(createdSupplier)
+                                .build();
+        }
 
-    // =========================
-    // GET ALL
-    // =========================
-    @Operation(summary = "Get all suppliers")
-    @GetMapping
-    public ApiResponse<List<SuppliersResponse>> getAllSuppliers() {
+        // =========================
+        // GET ALL
+        // =========================
+        @Operation(summary = "Get all suppliers")
+        @GetMapping
+        public ApiResponse<List<SuppliersResponse>> getAllSuppliers() {
 
-        List<SuppliersResponse> suppliers = suppliersService.getAllSuppliers();
+                List<SuppliersResponse> suppliers = suppliersService.getAllSuppliers();
 
-        return ApiResponse.<List<SuppliersResponse>>builder()
-                .message("Successfully fetched all suppliers")
-                .data(suppliers)
-                .build();
-    }
+                return ApiResponse.<List<SuppliersResponse>>builder()
+                                .message("Successfully fetched all suppliers")
+                                .data(suppliers)
+                                .build();
+        }
 
-    // =========================
-    // GET BY ID
-    // =========================
-    @Operation(summary = "Get supplier by ID")
-    @GetMapping("/{id}")
-    public ApiResponse<SuppliersResponse> getSupplierById(
-            @PathVariable Long id) {
+        // =========================
+        // GET BY ID
+        // =========================
+        @Operation(summary = "Get supplier by ID")
+        @GetMapping("/{id}")
+        public ApiResponse<SuppliersResponse> getSupplierById(
+                        @PathVariable Long id) {
 
-        SuppliersResponse supplier = suppliersService.getSupplierById(id);
+                SuppliersResponse supplier = suppliersService.getSupplierById(id);
 
-        return ApiResponse.<SuppliersResponse>builder()
-                .message(
-                        "Successfully fetched supplier with ID: " + id)
-                .data(supplier)
-                .build();
-    }
+                return ApiResponse.<SuppliersResponse>builder()
+                                .message(
+                                                "Successfully fetched supplier with ID: " + id)
+                                .data(supplier)
+                                .build();
+        }
 
-    // =========================
-    // UPDATE
-    // =========================
-    @Operation(summary = "Update supplier by ID")
-    @PutMapping("/{id}")
-    public ApiResponse<SuppliersResponse> updateSupplier(
-            @PathVariable Long id,
-            @Valid @RequestBody SuppliersRequest suppliersRequest) {
+        // =========================
+        // UPDATE
+        // =========================
+        @Operation(summary = "Update supplier by ID")
+        @PutMapping("/{id}")
+        public ApiResponse<SuppliersResponse> updateSupplier(
+                        @PathVariable Long id,
+                        @Valid @RequestBody SuppliersRequest suppliersRequest) {
 
-        SuppliersResponse updatedSupplier = suppliersService.updateSupplier(
-                id,
-                suppliersRequest);
+                SuppliersResponse updatedSupplier = suppliersService.updateSupplier(
+                                id,
+                                suppliersRequest);
 
-        return ApiResponse.<SuppliersResponse>builder()
-                .message("Supplier successfully updated")
-                .data(updatedSupplier)
-                .build();
-    }
+                return ApiResponse.<SuppliersResponse>builder()
+                                .message("Supplier successfully updated")
+                                .data(updatedSupplier)
+                                .build();
+        }
 
-    // =========================
-    // DELETE
-    // =========================
-    @Operation(summary = "Delete supplier by ID")
-    @DeleteMapping("/delete/{id}")
-    public ApiResponse<String> deleteSupplier(
-            @PathVariable Long id) {
+        // =========================
+        // DELETE
+        // =========================
+        @Operation(summary = "Delete supplier by ID")
+        @DeleteMapping("/delete/{id}")
+        public ApiResponse<String> deleteSupplier(
+                        @PathVariable Long id) {
 
-        suppliersService.deleteSupplier(id);
+                String message = suppliersService.deleteSupplier(id);
 
-        return ApiResponse.<String>builder()
-                .message("Supplier successfully deleted")
-                .data(null)
-                .build();
-    }
+                return ApiResponse.<String>builder()
+                                .message(message)
+                                .data(null)
+                                .build();
+        }
 }

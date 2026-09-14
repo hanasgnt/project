@@ -26,89 +26,89 @@ import jakarta.validation.Valid;
 @RequestMapping("/products")
 public class ProductsController {
 
-    @Autowired
-    private ProductsService productsService;
+        @Autowired
+        private ProductsService productsService;
 
-    // =========================
-    // CREATE
-    // =========================
-    @Operation(summary = "Create a new product")
-    @PostMapping("/create")
-    public ApiResponse<ProductsResponse> createProduct(
-            @Valid @RequestBody ProductsRequest productsRequest) {
+        // =========================
+        // CREATE
+        // =========================
+        @Operation(summary = "Create a new product")
+        @PostMapping("/create")
+        public ApiResponse<ProductsResponse> createProduct(
+                        @Valid @RequestBody ProductsRequest productsRequest) {
 
-        ProductsResponse createdProduct = productsService.createProduct(productsRequest);
+                ProductsResponse createdProduct = productsService.createProduct(productsRequest);
 
-        return ApiResponse.<ProductsResponse>builder()
-                .message("Product successfully created")
-                .data(createdProduct)
-                .build();
-    }
+                return ApiResponse.<ProductsResponse>builder()
+                                .message("Product successfully created")
+                                .data(createdProduct)
+                                .build();
+        }
 
-    // =========================
-    // GET ALL
-    // =========================
-    @Operation(summary = "Get all products")
-    @GetMapping
-    public ApiResponse<List<ProductsResponse>> getAllProducts() {
+        // =========================
+        // GET ALL
+        // =========================
+        @Operation(summary = "Get all products")
+        @GetMapping
+        public ApiResponse<List<ProductsResponse>> getAllProducts() {
 
-        List<ProductsResponse> products = productsService.getAllProducts();
+                List<ProductsResponse> products = productsService.getAllProducts();
 
-        return ApiResponse.<List<ProductsResponse>>builder()
-                .message("Successfully fetched all products")
-                .data(products)
-                .build();
-    }
+                return ApiResponse.<List<ProductsResponse>>builder()
+                                .message("Successfully fetched all products")
+                                .data(products)
+                                .build();
+        }
 
-    // =========================
-    // GET BY ID
-    // =========================
-    @Operation(summary = "Get product by ID")
-    @GetMapping("/{id}")
-    public ApiResponse<ProductsResponse> getProductById(
-            @PathVariable Long id) {
+        // =========================
+        // GET BY ID
+        // =========================
+        @Operation(summary = "Get product by ID")
+        @GetMapping("/{id}")
+        public ApiResponse<ProductsResponse> getProductById(
+                        @PathVariable Long id) {
 
-        ProductsResponse product = productsService.getProductById(id);
+                ProductsResponse product = productsService.getProductById(id);
 
-        return ApiResponse.<ProductsResponse>builder()
-                .message(
-                        "Successfully fetched product with ID: " + id)
-                .data(product)
-                .build();
-    }
+                return ApiResponse.<ProductsResponse>builder()
+                                .message(
+                                                "Successfully fetched product with ID: " + id)
+                                .data(product)
+                                .build();
+        }
 
-    // =========================
-    // UPDATE
-    // =========================
-    @Operation(summary = "Update product by ID")
-    @PutMapping("/{id}")
-    public ApiResponse<ProductsResponse> updateProduct(
-            @PathVariable Long id,
-            @Valid @RequestBody ProductsRequest productsRequest) {
+        // =========================
+        // UPDATE
+        // =========================
+        @Operation(summary = "Update product by ID")
+        @PutMapping("/{id}")
+        public ApiResponse<ProductsResponse> updateProduct(
+                        @PathVariable Long id,
+                        @Valid @RequestBody ProductsRequest productsRequest) {
 
-        ProductsResponse updatedProduct = productsService.updateProduct(
-                id,
-                productsRequest);
+                ProductsResponse updatedProduct = productsService.updateProduct(
+                                id,
+                                productsRequest);
 
-        return ApiResponse.<ProductsResponse>builder()
-                .message("Product successfully updated")
-                .data(updatedProduct)
-                .build();
-    }
+                return ApiResponse.<ProductsResponse>builder()
+                                .message("Product successfully updated")
+                                .data(updatedProduct)
+                                .build();
+        }
 
-    // =========================
-    // DELETE
-    // =========================
-    @Operation(summary = "Delete product by ID")
-    @DeleteMapping("/delete/{id}")
-    public ApiResponse<String> deleteProduct(
-            @PathVariable Long id) {
+        // =========================
+        // DELETE
+        // =========================
+        @Operation(summary = "Delete product by ID")
+        @DeleteMapping("/delete/{id}")
+        public ApiResponse<String> deleteProduct(
+                        @PathVariable Long id) {
 
-        productsService.deleteProduct(id);
+                String message = productsService.deleteProduct(id);
 
-        return ApiResponse.<String>builder()
-                .message("Product successfully deleted")
-                .data(null)
-                .build();
-    }
+                return ApiResponse.<String>builder()
+                                .message(message)
+                                .data(null)
+                                .build();
+        }
 }

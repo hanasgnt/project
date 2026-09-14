@@ -12,4 +12,5 @@ public interface SuppliersRepository extends JpaRepository<Suppliers, Long> {
     boolean existsByCompanyNameIgnoreCaseAndIdNot(
             String companyName,
             Long id);
+
 }
