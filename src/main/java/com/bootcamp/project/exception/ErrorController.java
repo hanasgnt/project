@@ -58,16 +58,17 @@ public class ErrorController {
                                                 .build());
         }
 
-        @ExceptionHandler(Exception.class)
-        public ResponseEntity<ApiResponse<String>> handleGenericException(Exception ex) {
+        // @ExceptionHandler(Exception.class)
+        // public ResponseEntity<ApiResponse<String>> handleGenericException(Exception
+        // ex) {
 
-                logger.error("Unhandled exception occurred", ex);
+        // logger.error("Unhandled exception occurred", ex);
 
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                                .body(ApiResponse.<String>builder()
-                                                .success(false)
-                                                .message("Terjadi kesalahan pada server. Silakan coba lagi nanti.")
-                                                .data(null)
-                                                .build());
-        }
+        // return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+        // .body(ApiResponse.<String>builder()
+        // .success(false)
+        // .message("Terjadi kesalahan pada server. Silakan coba lagi nanti.")
+        // .data(null)
+        // .build());
+        // }
 }

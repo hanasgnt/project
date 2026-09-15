@@ -3,11 +3,14 @@ package com.bootcamp.project.service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
 import com.bootcamp.project.dto.StockLogReportResponse;
+import com.bootcamp.project.dto.StockLogResponse;
 import com.bootcamp.project.entity.StockLogs;
 import com.bootcamp.project.repository.StockLogsRepository;
 
@@ -46,16 +49,39 @@ public class StockLogReportService {
                     endDateTime);
         }
 
-        List<StockLogReportResponse> result = new ArrayList<>();
+        Map<String, List<StockLogResponse>> logsByProduct = new LinkedHashMap<>();
+
+        Map<String, Integer> stockByProduct = new LinkedHashMap<>();
 
         for (StockLogs stockLog : stockLogs) {
 
+            String productName = stockLog.getProduct().getProductName();
+
+            Integer currentStock = stockLog.getProduct().getUnitsInStock() == null
+                    ? 0
+                    : stockLog.getProduct().getUnitsInStock().intValue();
+
+            logsByProduct
+                    .computeIfAbsent(productName, key -> new ArrayList<>())
+                    .add(new StockLogResponse(
+                            stockLog.getId(),
+                            stockLog.getQuantity(),
+                            stockLog.getType(),
+                            stockLog.getCreatedAt()));
+
+            stockByProduct.put(productName, currentStock);
+        }
+
+        List<StockLogReportResponse> result = new ArrayList<>();
+
+        for (Map.Entry<String, List<StockLogResponse>> entry : logsByProduct.entrySet()) {
+
+            String productName = entry.getKey();
+
             result.add(new StockLogReportResponse(
-                    stockLog.getId(),
-                    stockLog.getProduct().getProductName(),
-                    stockLog.getQuantity(),
-                    stockLog.getType(),
-                    stockLog.getCreatedAt()));
+                    productName,
+                    stockByProduct.get(productName),
+                    entry.getValue()));
         }
 
         return result;

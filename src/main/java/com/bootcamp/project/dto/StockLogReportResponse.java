@@ -1,6 +1,6 @@
 package com.bootcamp.project.dto;
 
-import java.time.LocalDateTime;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,10 +8,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class StockLogReportResponse {
-
-    private Long id;
     private String productName;
-    private Integer quantity;
-    private String type;
-    private LocalDateTime createdAt;
+    private Integer currentStock;
+    private List<StockLogResponse> logs;
 }

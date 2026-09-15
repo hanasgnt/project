@@ -9,6 +9,8 @@ import com.bootcamp.project.entity.Products;
 
 @Repository
 public interface ProductsRepository extends JpaRepository<Products, Long> {
+    boolean existsByProductName(String productName);
+
     boolean existsByCategoryId(Long categoryId);
 
     boolean existsBySupplierId(Long supplierId);

@@ -129,6 +129,12 @@ public class ProductsService {
                                         });
                 }
 
+                if (productRepository.existsByProductName(request.getProductName())) {
+                        throw new ResponseStatusException(
+                                        HttpStatus.CONFLICT,
+                                        "Product name already exists");
+                }
+
                 Products product = new Products();
 
                 product.setProductName(request.getProductName());

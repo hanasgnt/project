@@ -54,7 +54,7 @@ public class Products {
     private Short reorderLevel;
 
     @Column(name = "discontinued")
-    private Boolean discontinued;
+    private Boolean discontinued = false;
 
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;

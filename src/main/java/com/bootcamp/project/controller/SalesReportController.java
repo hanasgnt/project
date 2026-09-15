@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bootcamp.project.dto.BestSellerResponse;
+import com.bootcamp.project.dto.RevenueTrendResponse;
 import com.bootcamp.project.dto.SalesReportResponse;
 import com.bootcamp.project.service.SalesReportService;
 
@@ -37,5 +39,32 @@ public class SalesReportController {
         return salesReportService.getSalesReport(
                 startDate,
                 endDate);
+    }
+
+    @GetMapping("/sales/best-sellers")
+    @Operation(summary = "Get best seller products report")
+    public List<BestSellerResponse> getBestSellerReport(
+            @RequestParam(value = "start_date", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+
+            @RequestParam(value = "end_date", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+
+        return salesReportService.getBestSellerReport(
+                startDate,
+                endDate);
+    }
+
+    @GetMapping("/sales/revenue-trend")
+    @Operation(summary = "Get revenue trend report, grouped by day/week/month")
+    public List<RevenueTrendResponse> getRevenueTrend(
+            @RequestParam(value = "start_date", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+
+            @RequestParam(value = "end_date", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
+
+            @RequestParam(value = "group_by", defaultValue = "day") String groupBy) {
+
+        return salesReportService.getRevenueTrend(
+                startDate,
+                endDate,
+                groupBy);
     }
 }
